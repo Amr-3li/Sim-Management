@@ -85,6 +85,7 @@ class LoginActions extends StatelessWidget {
     if (!formState.currentState!.validate()) {
       return;
     }
+    print(phoneController.text);
     ScaffoldMessenger.of(context).showSnackBar(
       const SnackBar(
         content: Text(AppStrings.loggingIn),
