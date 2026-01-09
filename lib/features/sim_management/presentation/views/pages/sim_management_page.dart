@@ -6,6 +6,7 @@ import 'package:go_router/go_router.dart';
 import 'package:sim_management_task/core/services/sharedpreference_singelton.dart';
 import 'package:sim_management_task/core/utils/app_color.dart';
 import 'package:sim_management_task/core/utils/app_strings.dart';
+import 'package:sim_management_task/core/utils/failure.dart';
 import 'package:sim_management_task/core/widgets/custom_app_bar.dart';
 import 'package:sim_management_task/features/sim_management/data/models/sim_model.dart';
 import 'package:sim_management_task/features/sim_management/presentation/cubits/get_sim_data/get_sim_data_cubit.dart';
@@ -107,14 +108,27 @@ class _SimManagementPageState extends State<SimManagementPage> {
                         buttonText: AppStrings.retry,
                         onButtonPressed: _handleRetry,
                       );
+                    } else if (state is GetSimDataFailure) {
+                      return EmptyStateWidget(
+                        icon: Icons.shield_outlined,
+                        iconColor: Colors.red,
+                        iconBackgroundColor: AppColors.grey100,
+                        title: "Permission Denied ",
+                        description:
+                            "Permission Denied Please Grant The Permission To Continue",
+
+                        buttonText: AppStrings.retry,
+                        onButtonPressed: _handleRetry,
+                      );
                     } else {
                       return EmptyStateWidget(
-                        icon: Icons.phone_android_outlined,
-                        iconColor: AppColors.grey600,
+                        icon: Icons.shield_outlined,
+                        iconColor: Colors.red,
                         iconBackgroundColor: AppColors.grey100,
-                        title: AppStrings.noSimCardsDetected,
-                        description: AppStrings
-                            .pleaseInsertASimCardIntoYourDeviceToContinueMakeSureTheSimCardIsProperlySeatedInTheSimTray,
+                        title: "some things went wrong",
+                        description:
+                            "some things went wrong Please Grant The Permission To Continue",
+
                         buttonText: AppStrings.retry,
                         onButtonPressed: _handleRetry,
                       );

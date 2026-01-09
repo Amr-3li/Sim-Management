@@ -7,12 +7,11 @@ import 'package:sim_reader/sim_reader.dart';
 class GetSimsDataImpl implements GetSimsData {
   @override
   Future<List<SimModel>> getSims() async {
-    final status = await Permission.phone.request();
-    if (!status.isGranted) {
-      throw PermissionFailure("Permission not granted");
-    }
-
     try {
+      final status = await Permission.phone.request();
+      if (!status.isGranted) {
+        throw PermissionFailure("Permission not granted");
+      }
       bool hasSimCard = await SimReader.hasSimCard();
 
       if (!hasSimCard) {
