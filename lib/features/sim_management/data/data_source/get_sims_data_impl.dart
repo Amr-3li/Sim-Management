@@ -7,34 +7,25 @@ import 'package:sim_reader/sim_reader.dart';
 class GetSimsDataImpl implements GetSimsData {
   @override
   Future<List<SimModel>> getSims() async {
-    try {
-      final status = await Permission.phone.request();
-      if (!status.isGranted) {
-        throw PermissionFailure("Permission not granted");
-      }
-      bool hasSimCard = await SimReader.hasSimCard();
-
-      if (!hasSimCard) {
-        return [];
-      }
-      List<SimInfo> allSimCards = await SimReader.getAllSimInfo();
-      print("=========================// ${allSimCards[0].toString()}");
-      return allSimCards
-          .map(
-            (sim) => SimModel(
-              id: sim.simSlotIndex!,
-              phoneNumber: sim.carrierName == "vodafone"
-                  ? "010********"
-                  : "012********",
-              provider: sim.carrierName!,
-              simStatus: SimStatus.active,
-              connectionStatus: ConnectionStatus.connected,
-              signalStrength: 4,
-            ),
-          )
-          .toList();
-    } catch (e) {
-      throw SimFailure("Error reading SIM info: $e");
+    final status = await Permission.phone.request();
+    if (!status.isGranted) {
+      throw PermissionFailure("Permission not granted");
     }
+
+    final hasSim = await SimReader.hasSimCard();
+    if (!hasSim) return [];
+
+    final sims = await SimReader.getAllSimInfo();
+
+    return sims.map((sim) {
+      return SimModel(
+        id: sim.simSlotIndex!,
+        phoneNumber: "01*********",
+        provider: sim.carrierName ?? "Unknown",
+        simStatus: SimStatus.active,
+        connectionStatus: ConnectionStatus.connected,
+        signalStrength: 4,
+      );
+    }).toList();
   }
 }

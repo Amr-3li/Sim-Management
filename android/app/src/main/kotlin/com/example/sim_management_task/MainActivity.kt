@@ -6,12 +6,18 @@ import io.flutter.plugin.common.EventChannel
 
 class MainActivity : FlutterFragmentActivity() {
 
+    companion object {
+        const val SIM_CHANNEL = "sim_state_events"
+    }
+
     override fun configureFlutterEngine(flutterEngine: FlutterEngine) {
         super.configureFlutterEngine(flutterEngine)
 
         EventChannel(
             flutterEngine.dartExecutor.binaryMessenger,
-            "sim_state_events"
-        ).setStreamHandler(SimEventStreamHandler)
+            SIM_CHANNEL
+        ).setStreamHandler(
+            SimEventStreamHandler(applicationContext)
+        )
     }
 }

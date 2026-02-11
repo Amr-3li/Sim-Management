@@ -4,6 +4,7 @@ import 'package:sim_management_task/core/utils/app_color.dart';
 import 'package:sim_management_task/core/utils/app_strings.dart';
 import 'package:sim_management_task/features/sim_management/data/models/sim_model.dart';
 import 'package:sim_management_task/features/sim_management/presentation/views/pages/sync_sms_page.dart';
+import 'package:sim_management_task/features/sim_management/presentation/views/widgets/phone_number%20component.dart';
 import 'network_provider_info.dart';
 import 'status_badge.dart';
 
@@ -53,14 +54,7 @@ class SimCardWidget extends StatelessWidget {
               ),
               const SizedBox(height: 4),
               // Phone number
-              Text(
-                sim.phoneNumber,
-                style: const TextStyle(
-                  color: AppColors.grey500,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
+              PhoneNumberComponent(sim: sim),
               const SizedBox(height: 10),
               const Divider(color: AppColors.grey300, thickness: 1),
               const SizedBox(height: 20),

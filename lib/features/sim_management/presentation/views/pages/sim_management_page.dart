@@ -6,7 +6,6 @@ import 'package:go_router/go_router.dart';
 import 'package:sim_management_task/core/services/sharedpreference_singelton.dart';
 import 'package:sim_management_task/core/utils/app_color.dart';
 import 'package:sim_management_task/core/utils/app_strings.dart';
-import 'package:sim_management_task/core/utils/failure.dart';
 import 'package:sim_management_task/core/widgets/custom_app_bar.dart';
 import 'package:sim_management_task/features/sim_management/data/models/sim_model.dart';
 import 'package:sim_management_task/features/sim_management/presentation/cubits/get_sim_data/get_sim_data_cubit.dart';
@@ -30,7 +29,7 @@ class _SimManagementPageState extends State<SimManagementPage> {
     super.initState();
     context.read<GetSimDataCubit>()
       ..getSims()
-      ..listenSimChanges();
+      ..startListening();
   }
 
   @override

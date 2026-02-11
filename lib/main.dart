@@ -10,7 +10,7 @@ void main() async {
   GetItSetup();
   await SharedPreferenceSingelton.init();
 
-  runApp(DevicePreview(enabled: true, builder: (context) => const MyApp()));
+  runApp(DevicePreview(enabled: false, builder: (context) => const MyApp()));
 }
 
 class MyApp extends StatelessWidget {

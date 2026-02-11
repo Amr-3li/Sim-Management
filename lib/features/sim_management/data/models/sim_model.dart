@@ -28,4 +28,27 @@ class SimModel {
 
   bool get isConnected => connectionStatus == ConnectionStatus.connected;
   bool get isActive => simStatus == SimStatus.active;
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+
+    return other is SimModel &&
+        other.id == id &&
+        other.phoneNumber == phoneNumber &&
+        other.provider == provider &&
+        other.simStatus == simStatus &&
+        other.connectionStatus == connectionStatus &&
+        other.signalStrength == signalStrength;
+  }
+
+  @override
+  int get hashCode {
+    return id.hashCode ^
+        phoneNumber.hashCode ^
+        provider.hashCode ^
+        simStatus.hashCode ^
+        connectionStatus.hashCode ^
+        signalStrength.hashCode;
+  }
 }
